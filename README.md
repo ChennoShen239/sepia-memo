@@ -7,8 +7,9 @@ printer's rules, and readable mathematics and tables. Adapted from
 spelling and numerals. No package dependencies or font installation are needed
 for the default appearance.
 
-Version 0.1.0 is available from this GitHub repository. Typst Universe submission
-is pending; the registry import below is not publicly available yet.
+Version 0.1.0 is available from this GitHub repository.
+[Typst Universe submission #5916](https://github.com/typst/packages/pull/5916)
+is awaiting review; the registry import below is not publicly available yet.
 Requires Typst 0.15.1 or newer.
 
 ![Sample research memo](https://raw.githubusercontent.com/ChennoShen239/sepia-memo/v0.1.0/thumbnail.png)
