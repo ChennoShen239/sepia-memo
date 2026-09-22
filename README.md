@@ -10,7 +10,7 @@ for the default appearance.
 Version 0.1.0 is available from this GitHub repository.
 [Typst Universe submission #5916](https://github.com/typst/packages/pull/5916)
 is awaiting review; the registry import below is not publicly available yet.
-Requires Typst 0.15.1 or newer.
+Requires Typst 0.15.0 or newer.
 
 ![Sample research memo](https://raw.githubusercontent.com/ChennoShen239/sepia-memo/v0.1.0/thumbnail.png)
 
