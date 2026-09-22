@@ -7,12 +7,21 @@ printer's rules, and readable mathematics and tables. Adapted from
 spelling and numerals. No package dependencies or font installation are needed
 for the default appearance.
 
-Version 0.1.0 is available from this GitHub repository.
-[Typst Universe submission #5916](https://github.com/typst/packages/pull/5916)
-is awaiting review; the registry import below is not publicly available yet.
+Version 0.1.1 is a repository-only update. It has not been submitted to Typst
+Universe. The existing [version 0.1.0 submission #5916](https://github.com/typst/packages/pull/5916)
+remains unchanged and is awaiting review. Registry imports require a local
+package installation until the corresponding version is published.
 Requires Typst 0.15.0 or newer.
 
-![Sample research memo](https://raw.githubusercontent.com/ChennoShen239/sepia-memo/v0.1.0/thumbnail.png)
+![Sample research memo](thumbnail.png)
+
+## Changes in 0.1.1
+
+- Larger text: 13 pt body, 28 pt memo title, and 19 pt level-1 headings with
+  small caps retained. Level-2 headings use 17 pt italic; level-3 use 14 pt bold.
+- More space above and below the printer's rule, increased from 0.7 em to 1.15 em.
+- Larger byline, subtitle, table text, margin notes, and footnotes.
+- Updated preview image. Larger typography can increase the page count.
 
 ## Try it now
 
@@ -38,10 +47,10 @@ The content file only defines a function and does not render a memo by itself.
 ## Use as a package
 
 The following works with a [local package installation](https://github.com/typst/packages#local-packages)
-and will work from the registry once version 0.1.0 is published on Typst Universe:
+and will work from the registry once version 0.1.1 is published on Typst Universe:
 
 ```typ
-#import "@preview/sepia-memo:0.1.0": memo, memo-note, printer-rule
+#import "@preview/sepia-memo:0.1.1": memo, memo-note, printer-rule
 
 #show: memo.with(
   title: [A research note],
@@ -65,10 +74,10 @@ and place your document beside that file. To adapt an existing document, keep
 its content and select its existing paper size explicitly, for example
 `paper: "us-letter"`.
 
-After Universe publication, create a new project with:
+After version 0.1.1 is published on Universe, create a new project with:
 
 ```sh
-typst init @preview/sepia-memo:0.1.0 my-memo
+typst init @preview/sepia-memo:0.1.1 my-memo
 typst compile my-memo/main.typ my-memo/main.pdf
 ```
 
@@ -89,6 +98,9 @@ typst compile my-memo/main.typ my-memo/main.pdf
 | `ink` | `rgb("#231F1A")` | Text and title-rule color |
 
 The default fonts are embedded in the Typst CLI. Code uses DejaVu Sans Mono.
+Body text is 13 pt; the memo title is 28 pt. Level-1 section headings use
+small caps at 19 pt. Level-2 headings use 17 pt italic; level-3 headings use
+14 pt bold.
 The fixed margins are 25 mm top, 26 mm bottom, 27 mm left, and 38 mm right.
 The layout is intended for portrait A4 and US Letter pages.
 
@@ -123,7 +135,7 @@ typst compile --font-path /path/to/fonts example.typ memo.pdf
 Select the families in the show rule:
 
 ```typ
-#import "@preview/sepia-memo:0.1.0": memo
+#import "@preview/sepia-memo:0.1.1": memo
 
 #show: memo.with(
   title: [A research note],
