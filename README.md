@@ -7,13 +7,21 @@ printer's rules, and readable mathematics and tables. Adapted from
 spelling and numerals. No package dependencies or font installation are needed
 for the default appearance.
 
-Version 0.1.1 is a repository-only update. It has not been submitted to Typst
+Version 0.1.2 is a repository-only update. It has not been submitted to Typst
 Universe. The existing [version 0.1.0 submission #5916](https://github.com/typst/packages/pull/5916)
 remains unchanged and is awaiting review. Registry imports require a local
 package installation until the corresponding version is published.
 Requires Typst 0.15.0 or newer.
 
 ![Sample research memo](thumbnail.png)
+
+## Changes in 0.1.2
+
+- Added a ready-to-compile [Garamond example](example-garamond.typ) using
+  EB Garamond for text and Garamond-Math for equations.
+- Expanded [font setup instructions](#optional-garamond-appearance), including
+  macOS installation, font discovery, custom font directories, and editor preview.
+- Default fonts, typography, and the template API are unchanged.
 
 ## Changes in 0.1.1
 
@@ -47,10 +55,10 @@ The content file only defines a function and does not render a memo by itself.
 ## Use as a package
 
 The following works with a [local package installation](https://github.com/typst/packages#local-packages)
-and will work from the registry once version 0.1.1 is published on Typst Universe:
+and will work from the registry once version 0.1.2 is published on Typst Universe:
 
 ```typ
-#import "@preview/sepia-memo:0.1.1": memo, memo-note, printer-rule
+#import "@preview/sepia-memo:0.1.2": memo, memo-note, printer-rule
 
 #show: memo.with(
   title: [A research note],
@@ -74,10 +82,10 @@ and place your document beside that file. To adapt an existing document, keep
 its content and select its existing paper size explicitly, for example
 `paper: "us-letter"`.
 
-After version 0.1.1 is published on Universe, create a new project with:
+After version 0.1.2 is published on Universe, create a new project with:
 
 ```sh
-typst init @preview/sepia-memo:0.1.1 my-memo
+typst init @preview/sepia-memo:0.1.2 my-memo
 typst compile my-memo/main.typ my-memo/main.pdf
 ```
 
@@ -122,34 +130,91 @@ table, column, or another narrow container.
 
 ## Optional Garamond appearance
 
-Obtain [EB Garamond](https://github.com/octaviopardo/EBGaramond12) and
-[Garamond Math](https://github.com/YuanshengZhao/Garamond-Math) from their
-upstream projects. Use the regular, italic, bold, and bold-italic EB Garamond
-faces. Both font projects use OFL-1.1. Install the fonts on your system, or put
-them in a local directory and pass that directory to the compiler:
+Use **EB Garamond** for text and **Garamond-Math** for equations. The math font
+is [designed to match EB Garamond](https://github.com/YuanshengZhao/Garamond-Math).
+This option needs locally available fonts; the default appearance still works
+without installing anything.
 
-```sh
-typst compile --font-path /path/to/fonts example.typ memo.pdf
+### 1. Make both font families available
+
+Obtain the regular, italic, bold, and bold-italic EB Garamond faces from the
+[EB Garamond project](https://github.com/octaviopardo/EBGaramond12) or the
+[CTAN distribution](https://ctan.org/pkg/ebgaramond). Also obtain
+[Garamond-Math.otf](https://github.com/YuanshengZhao/Garamond-Math/blob/master/Garamond-Math.otf).
+The static OpenType files used for local validation were:
+
+```text
+EBGaramond-Regular.otf
+EBGaramond-Italic.otf
+EBGaramond-Bold.otf
+EBGaramond-BoldItalic.otf
+Garamond-Math.otf
 ```
 
-Select the families in the show rule:
+Install them through your operating system's font manager. On macOS, open
+these files in Font Book and click **Install**; see
+[Apple's font installation guide](https://support.apple.com/guide/font-book/install-and-validate-fonts-fntbk1000/mac).
+Then restart your editor and its preview so they rescan the fonts.
+
+If you use TeX Live, the fonts may already be present in its font directories.
+Locate them with `kpsewhich EBGaramond-Regular.otf` and
+`kpsewhich Garamond-Math.otf`; the other EB Garamond faces are usually beside
+the regular face. Fonts found by TeX are not necessarily visible to Typst.
+Install the files through your font manager or use the custom directory method
+below. Empty `kpsewhich` output means that file was not found.
+
+### 2. Check discovery and select the fonts
+
+Run `typst fonts`. Its output should include both exact family names:
+
+```text
+EB Garamond
+Garamond-Math
+```
+
+Add these two options to your existing `memo.with(...)` call:
 
 ```typ
-#import "@preview/sepia-memo:0.1.1": memo
-
-#show: memo.with(
-  title: [A research note],
-  font: "EB Garamond",
-  math-font: "Garamond-Math",
-)
+font: "EB Garamond",
+math-font: "Garamond-Math",
 ```
 
-Check the names with `typst fonts --font-path /path/to/fonts`. For editor
-preview, install the fonts or configure Tinymist's font paths. In the Typst web
-app, upload the font files into your own project if they are unavailable there.
-Universe prohibits bundling fonts inside packages or starter templates, so no
-font files are included here. The Garamond option changes line breaks and may
-change pagination.
+Changing `font` selects the text family; `math-font` separately selects the
+OpenType math family. Keep your other memo options unchanged.
+
+### 3. Compile the Garamond example
+
+From this repository's root, run:
+
+```sh
+typst compile example-garamond.typ example-garamond.pdf
+```
+
+The [example source](example-garamond.typ) uses a relative import, so it works
+before version 0.1.2 is published on Typst Universe. It includes prose, small-cap
+headings, equations, a table, a footnote, and a margin note. Garamond can change
+line breaks and pagination.
+
+### Alternative: use a font directory without installing
+
+Put the five font files in a directory of your choice, then pass that same
+path to both commands:
+
+```sh
+typst fonts --font-path /path/to/fonts
+typst compile --font-path /path/to/fonts example-garamond.typ example-garamond.pdf
+```
+
+A CLI `--font-path` flag does not configure an editor's separate preview
+process. For Zed/Tinymist, install the fonts system-wide or for your user account,
+or configure the editor's own font paths. If the CLI works but preview still
+uses old fonts, restart the editor and preview. An `unknown font family` warning
+means the requested font is unavailable to that process.
+
+In the Typst web app, upload the font files into your project if the families
+are unavailable; see [Typst's font documentation](https://typst.app/docs/reference/text/text/#parameters-font).
+No font files are bundled here. The font software has its own OFL-1.1 terms;
+retain its licenses and notices if redistributing it separately.
 
 ## Attribution and licenses
 
@@ -161,7 +226,7 @@ copyright (c) 2026 Chen Gao. See [NOTICE](NOTICE) for the source and changes.
 | Files | License |
 | --- | --- |
 | `lib.typ`, `thumbnail.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
-| `template/*`, `example.typ`, `typst.toml`, `README.md`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
+| `template/*`, `example.typ`, `example-garamond.typ`, `typst.toml`, `README.md`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
 | `LICENSE`, `NOTICE`, `licenses/*` | License and attribution notices, retained as applicable |
 
 The independently written starter prose and invented measurements are not
