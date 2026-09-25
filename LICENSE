@@ -1,7 +1,7 @@
 sepia-memo uses separate licenses for separate files.
 
 CC-BY-SA-4.0:
-  lib.typ and thumbnail.png
+  lib.typ, thumbnail.png, and usage.png
   Copyright (c) 2026 Chen Gao and the vintage-latex repository contributors.
   Adapted from Foadsf/vintage-latex; see NOTICE for source and change details.
   Full terms: licenses/CC-BY-SA-4.0.txt
@@ -22,7 +22,7 @@ Generated documents:
   Authors retain rights in their own original text and research. Sharing an
   output that contains or adapts protected upstream material may carry that
   material's license obligations; this package grants no blanket exception.
-  The supplied sample PDF and thumbnail may be shared under CC-BY-SA-4.0.
+  The supplied sample PDF and preview images may be shared under CC-BY-SA-4.0.
 
 Fonts:
   No font files are distributed. Optional EB Garamond and Garamond Math fonts

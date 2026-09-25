@@ -12,8 +12,6 @@ Version 0.1.2 is a repository-only version. The existing
 still contains 0.1.0. Registry imports require local installation until the
 corresponding version is published.
 
-![Sample research memo](thumbnail.png)
-
 ## Usage
 
 Import the package and apply `memo` to your document:
@@ -31,6 +29,10 @@ Write your note here.
 
 #printer-rule()
 ```
+
+Output of the example above:
+
+![Rendered Usage example](usage.png)
 
 ## Start a memo
 
@@ -166,7 +168,7 @@ copyright (c) 2026 Chen Gao. See [NOTICE](NOTICE) for the source and changes.
 
 | Files | License |
 | --- | --- |
-| `lib.typ`, `thumbnail.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
+| `lib.typ`, `thumbnail.png`, `usage.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
 | `template/main.typ`, `typst.toml`, `README.md`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
 | `LICENSE`, `NOTICE`, `licenses/*` | License and attribution notices, retained as applicable |
 
@@ -175,7 +177,7 @@ users edit and distribute the starter without attribution or notice requirements
 it does not change the library's CC-BY-SA obligations. Authors retain rights in
 their own writing. An output's obligations depend on any protected upstream
 material it contains or adapts; this package grants no blanket output exception.
-The supplied sample PDF and thumbnail may be shared under CC-BY-SA-4.0.
+The supplied sample PDF and preview images may be shared under CC-BY-SA-4.0.
 
 No upstream demonstration prose, fonts, engraved figures, or fiziko code are
 distributed. See [LICENSE](LICENSE) for file-level scope and full terms.
