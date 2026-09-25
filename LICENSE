@@ -8,8 +8,7 @@ CC-BY-SA-4.0:
   https://creativecommons.org/licenses/by-sa/4.0/legalcode.en
 
 MIT-0:
-  template/main.typ, template/content.typ, example.typ, example-garamond.typ,
-  typst.toml, README.md, and .gitignore
+  template/main.typ, typst.toml, README.md, and .gitignore
   Copyright (c) 2026 Chen Gao.
   These starter files, sample prose, and supporting files are independently
   written. Full terms: licenses/MIT-0.txt
