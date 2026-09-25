@@ -1,215 +1,168 @@
 <!-- SPDX-License-Identifier: MIT-0 -->
 # sepia-memo
 
-Research memos with cream paper, classical serif typography, small-cap headings,
-printer's rules, and readable mathematics and tables. Adapted from
-[Foadsf/vintage-latex](https://github.com/Foadsf/vintage-latex), with modern
-spelling and numerals. The memo style needs no extra fonts or packages; the starter uses
-[droplet](https://typst.app/universe/package/droplet/) for an optional drop cap.
-Requires Typst 0.15.0 or newer.
+Research memos with cream paper, Garamond text and mathematics, drop capitals,
+and margin notes. Requires Typst 0.15.0 or newer.
 
-Version 0.1.2 is a repository-only version. The existing
-[Typst Universe submission #5916](https://github.com/typst/packages/pull/5916)
-still contains 0.1.0. Registry imports require local installation until the
-corresponding version is published.
+Version 0.2.0 is not yet on Universe. Until publication, use the local preview
+instructions below. [Submission #5916](https://github.com/typst/packages/pull/5916).
 
-## Preview
+## Setup
 
-First page of the complete [starter](template/main.typ), with a drop capital,
-equations, a table, and footnotes:
-
-![Complete starter, page 1 of 2](thumbnail.png)
+Install [EB Garamond](https://ctan.org/pkg/ebgaramond) (regular, italic, bold,
+and bold italic) and [Garamond-Math](https://github.com/YuanshengZhao/Garamond-Math/blob/master/Garamond-Math.otf).
+On desktop, install through your font manager and restart the editor/preview;
+verify both families with `typst fonts`. Alternatively pass `--font-path /path/to/fonts`.
+In the Typst web app, upload them to your project if unavailable. Fonts are not
+bundled. The starter downloads `droplet:0.3.1` on first compilation.
 
 ## Usage
 
-For a shorter example, import the package and apply `memo` to your document:
+[template/main.typ](template/main.typ) is the only starter. Edit its metadata
+and body. The complete example below is the same file; the image is its first page.
 
 ```typ
-#import "@preview/sepia-memo:0.1.2": memo, memo-note, printer-rule
+// SPDX-License-Identifier: MIT-0
+// Copyright (c) 2026 Chen Gao
+#import "@preview/sepia-memo:0.2.0": memo, memo-note
 #import "@preview/droplet:0.3.1": dropcap
 
-#show: memo.with(title: [A research note], author: "Your name")
+#show: memo.with(
+  title: [On repeated measurement],
+  subtitle: [A short note on averages and variation],
+  author: "A. Researcher",
+  date: [22 September 2026],
+)
 
-= Main idea
+// ponytail: One starter; optional fonts use the same memo settings.
+#set math.equation(numbering: "(1)")
+
+= Purpose
 
 #dropcap(height: 3, gap: 4pt)[
-  Write your note here. State the question, define the quantities, and explain
-  the main idea before introducing equations or evidence. Use a dropped capital
-  to mark the opening paragraph; the rest of the note uses ordinary text.
+A measurement is easier to interpret when its units, repetition, and variation
+are recorded together. This note uses five invented observations to show how a
+short calculation can be reported alongside the information needed to check it.
+The values illustrate the layout; they are not evidence from an experiment.
 ]
 
-#memo-note[Check the units.][A paragraph with a note in the right margin.]
+= Calculation
 
-#printer-rule()
+Let $x_i$ denote observation $i$ and let $n$ be the number of observations. The
+sample mean and the sample standard deviation are
+
+$
+  overline(x) = 1/n sum_(i=1)^n x_i,
+  quad s = sqrt(1/(n - 1) sum_(i=1)^n (x_i - overline(x))^2).
+$ <eq-summary>
+
+For the values below, $n = 5$, $overline(x) = 10.0$, and $s approx 0.16$ units.
+The standard deviation is rounded to two decimal places; the calculation uses
+the observations as shown.#footnote[The divisor $n - 1$ defines the usual sample
+  variance. Here it equals four.]
+
+#figure(
+  table(
+    columns: (1fr, 1fr, 1fr),
+    align: (left, right, right),
+    table.hline(stroke: 0.6pt),
+    table.header([*Observation*], [*Value*], [*Deviation*]),
+    table.hline(stroke: 0.3pt),
+    [1], [9.8], [$-0.2$],
+    [2], [10.1], [$0.1$],
+    [3], [10.0], [$0.0$],
+    [4], [9.9], [$-0.1$],
+    [5], [10.2], [$0.2$],
+    table.hline(stroke: 0.6pt),
+  ),
+  caption: [Invented observations, in arbitrary units. Deviations are measured
+    from the sample mean.],
+) <tab-observations>
+
+= Interpretation
+
+#memo-note[
+  *Keep units visible.* A precise number can still describe an uncertain
+  measurement.
+][
+  @tab-observations makes the arithmetic in @eq-summary easy to inspect. The
+  deviations sum to zero, while their squares sum to $0.10$. These checks can
+  catch a transcription error before a rounded result is reported.
+]
+
+Repeated measurements describe variation under the conditions of collection.
+They do not, by themselves, establish that the instrument is calibrated or
+that a different setting would produce the same distribution. Those claims
+need their own observations and reasoning.
 ```
 
-Output of this shorter example:
+![The starter rendered with the default Garamond fonts, page 1 of 2](thumbnail.png)
 
-![Rendered Usage example](usage.png)
-
-## Start a memo
-
-The [starter](template/main.typ) contains memo settings and sample content in
-one file. Edit its title, author, date, and body to write your note.
-
-After version 0.1.2 is published on Universe, start a project with:
+Once 0.2.0 is published on Universe, create and watch a memo with:
 
 ```sh
-typst init @preview/sepia-memo:0.1.2 my-memo
+typst init @preview/sepia-memo:0.2.0 my-memo
 typst watch my-memo/main.typ my-memo/main.pdf
 ```
 
 ## Options
 
-Apply `memo.with(...)` with a show rule, as in the starter. All options are
-optional; the document body follows the show rule as ordinary Typst content.
+Set these in `memo.with(...)`. The body follows the show rule normally.
 
 | Option | Default | Purpose |
 | --- | --- | --- |
-| `title` | `[Untitled memo]` | Title content and PDF title metadata |
-| `subtitle` | `none` | Optional subtitle content |
-| `author` | `""` | Author string and PDF author metadata |
-| `date` | `none` | Date content or string; never changes automatically |
-| `paper` | `"a4"` | Paper name, such as `"us-letter"` |
-| `font` | `"Libertinus Serif"` | Body font family |
-| `math-font` | `"New Computer Modern Math"` | OpenType math font family |
-| `paper-color` | `rgb("#F4EBDD")` | Page background; use `white` for printing |
+| `title` | `[Untitled memo]` | Title and PDF metadata |
+| `subtitle` | `none` | Subtitle content |
+| `author` | `""` | Author string and PDF metadata |
+| `date` | `none` | Date content or string |
+| `paper` | `"a4"` | Paper size; also supports `"us-letter"` |
+| `font` | `"EB Garamond"` | Text font |
+| `math-font` | `"Garamond-Math"` | Math font |
+| `paper-color` | `rgb("#F4EBDD")` | Background; use `white` for printing |
 | `ink` | `rgb("#231F1A")` | Text and title-rule color |
 
-Default fonts are embedded in the Typst CLI. Code uses DejaVu Sans Mono.
-Body text is 13 pt; the title is 28 pt. Level-1 headings use 19 pt small caps,
-level-2 use 17 pt italic, and level-3 use 14 pt bold. Fixed margins are 25 mm
-top, 26 mm bottom, 27 mm left, and 38 mm right, intended for portrait A4 and
-US Letter. When adapting an existing document, select its paper size explicitly.
+For fonts embedded in the Typst CLI, set `font: "Libertinus Serif"` and
+`math-font: "New Computer Modern Math"`; the layout will differ from the preview.
 
-Headings, equations, references, footnotes, figures, and bibliographies remain
-ordinary Typst elements. Opt into equation numbering with
-`#set math.equation(numbering: "(1)")`. Tables use lining tabular numerals;
-add rules with `table.hline`. Table figures can span pages; use
-`table.header(repeat: true, ...)` to repeat a long table's header.
+- `memo-note(note)[paragraph]`: one short paragraph with a right-margin note.
+  Use at the top level with the standard margins; the pair stays on one page.
+- `printer-rule()`: import it from sepia-memo for a three-part divider.
+  Its `ink` option defaults to `rgb("#231F1A")`.
+- The starter's three-line drop cap comes from [droplet](https://typst.app/universe/package/droplet/).
+  Wrap prose only; keep tables, display equations, and margin notes outside it.
+  To remove it, delete the `dropcap(...)` wrapper and droplet import.
 
-Import `printer-rule` alongside `memo` to insert a three-part divider with
-`#printer-rule()`. Its optional `ink` parameter sets the color.
+## Local preview
 
-`memo-note(note)[paragraph]` pairs a short paragraph with a right-margin note.
-It reserves both heights to prevent overlap and stays on one page. Use it at
-the top level with the standard memo margins, not inside a table, column, or
-narrow container. Use ordinary footnotes for long notes.
-
-## Optional drop capital
-
-The starter and Usage example import `dropcap` directly from
-[droplet 0.3.1](https://typst.app/universe/package/droplet/), then wrap the opening
-paragraph in `#dropcap(height: 3, gap: 4pt)[...]`. The first letter spans three
-lines; text returns to full width below it. It inherits the memo's text font,
-including optional Garamond. No extra function or setting in `memo` is needed.
-
-Use it on one prose paragraph at a time. Keep tables, display equations, and
-margin notes outside the wrapper. Droplet splits at word boundaries and has
-[wrapping limitations](https://typst.app/universe/package/droplet/#paragraph-splitting).
-For an ordinary opening paragraph, remove the wrapper and the droplet import.
-Typst downloads droplet on first use; later builds can use the cached package.
-
-## Optional Garamond appearance
-
-In the starter's existing `memo.with(...)` call, add:
-
-```typ
-font: "EB Garamond",
-math-font: "Garamond-Math",
-```
-
-The first option changes text; the second changes equations. Garamond can
-change line breaks and pagination. Both font families must be available to
-the compiler or preview process.
-
-Obtain the regular, italic, bold, and bold-italic EB Garamond faces from the
-[EB Garamond project](https://github.com/octaviopardo/EBGaramond12) or
-[CTAN](https://ctan.org/pkg/ebgaramond), and
-[Garamond-Math.otf](https://github.com/YuanshengZhao/Garamond-Math/blob/master/Garamond-Math.otf).
-The static files used for validation were `EBGaramond-Regular.otf`,
-`EBGaramond-Italic.otf`, `EBGaramond-Bold.otf`, `EBGaramond-BoldItalic.otf`, and
-`Garamond-Math.otf`.
-
-Install them through your operating system's font manager. On macOS, use
-[Font Book](https://support.apple.com/guide/font-book/install-and-validate-fonts-fntbk1000/mac).
-Restart your editor and preview to rescan fonts. Run `typst fonts` and check
-for the exact family names `EB Garamond` and `Garamond-Math`.
-
-With TeX Live, `kpsewhich EBGaramond-Regular.otf` and
-`kpsewhich Garamond-Math.otf` locate installed files; the other text faces are
-usually beside the regular face. Empty output means the file was not found.
-Fonts visible to TeX are not necessarily visible to Typst: install them through
-your font manager or point Typst at their directory:
+Open the repository folder. In `template/main.typ`, change only the sepia-memo
+import path to `"../lib.typ"`, then run from the repository root:
 
 ```sh
-typst fonts --font-path /path/to/fonts
-typst compile --font-path /path/to/fonts main.typ memo.pdf
-```
-
-This command assumes a project created with `typst init`. For a Git checkout,
-use the input path and `--root .` from the instructions below.
-A CLI `--font-path` flag does not configure an editor's separate preview
-process. For Zed/Tinymist, install fonts for your user or configure its font
-paths, then restart the preview. An `unknown font family` warning means that
-process cannot find the requested font.
-
-In the Typst web app, upload fonts into your project if unavailable; see
-[Typst's font documentation](https://typst.app/docs/reference/text/text/#parameters-font).
-No fonts are bundled here. Font software has separate OFL-1.1 terms; retain
-its licenses and notices if redistributing it separately.
-
-## Local development and preview
-
-To try an unpublished checkout:
-
-```sh
-git clone https://github.com/ChennoShen239/sepia-memo.git
-cd sepia-memo
-```
-
-In `template/main.typ`, replace the first import with this local import:
-
-```typ
-#import "../lib.typ": memo, memo-note
-```
-
-Then compile or watch from the repository root:
-
-```sh
-typst compile --root . template/main.typ memo.pdf
 typst watch --root . template/main.typ memo.pdf
 ```
 
-Open the PDF in a viewer that reloads changed files. For browser preview, use
-an editor integration such as [Tinymist](https://myriad-dreamin.github.io/tinymist/feature/preview.html).
-Open the repository folder as the editor project and select `template/main.typ`
-as the main document. The project root must include `lib.typ` for local imports.
+Save edits to refresh the PDF, or open `template/main.typ` with your editor's
+[Tinymist browser preview](https://myriad-dreamin.github.io/tinymist/feature/preview.html).
 
-## Attribution and licenses
+## Licenses and dependencies
 
-The adapted library follows vintage-latex example 01 at commit
-`559011918849a3da819912a7c26493071d542df5`, with the optional Garamond math pairing
-from example 15. Copyright (c) 2026 the repository contributors; adaptation
-copyright (c) 2026 Chen Gao. See [NOTICE](NOTICE) for the source and changes.
+Adapted from [Foadsf/vintage-latex](https://github.com/Foadsf/vintage-latex).
+[NOTICE](NOTICE) records the source revision and changes; [LICENSE](LICENSE)
+defines the file boundaries and links to complete terms.
 
-| Files | License |
+| Included files | License |
 | --- | --- |
-| `lib.typ`, `thumbnail.png`, `usage.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
-| `template/main.typ`, `typst.toml`, `README.md`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
-| `LICENSE`, `NOTICE`, `licenses/*` | License and attribution notices, retained as applicable |
+| `lib.typ`, `thumbnail.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
+| `template/main.typ`, `README.md`, `typst.toml`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
 
-Starter prose and invented measurements were written independently. MIT-0 lets
-users edit and distribute the starter without attribution or notice requirements;
-it does not change the library's CC-BY-SA obligations. Authors retain rights in
-their own writing. An output's obligations depend on any protected upstream
-material it contains or adapts; this package grants no blanket output exception.
-The supplied sample PDF and preview images may be shared under CC-BY-SA-4.0.
+| External requirement | License |
+| --- | --- |
+| Typst 0.15.0+ compiler | [Apache-2.0](https://github.com/typst/typst/blob/main/LICENSE) |
+| droplet 0.3.1, imported by the starter | [MIT](https://github.com/typst/packages/blob/main/packages/preview/droplet/0.3.1/LICENSE) |
+| EB Garamond | [OFL-1.1](https://github.com/octaviopardo/EBGaramond12/blob/master/OFL.txt) |
+| Garamond-Math | [OFL-1.1](https://github.com/YuanshengZhao/Garamond-Math/blob/master/LICENSE) |
 
-The optional drop-cap package, droplet 0.3.1 by Eric Biedert, is separately
-distributed under [MIT](https://github.com/typst/packages/blob/main/packages/preview/droplet/0.3.1/LICENSE).
-It is imported from Universe; its source is not copied into this package.
-
-No upstream demonstration prose, fonts, engraved figures, or fiziko code are
-distributed. See [LICENSE](LICENSE) for file-level scope and full terms.
-No endorsement by upstream authors is claimed.
+External tools, package code, and fonts are not bundled. Retain their respective
+licenses and notices if redistributing them separately. Embedding OFL fonts does
+not license the document under OFL. Authors retain rights in their own text;
+any protected upstream material in an output retains its applicable obligations.

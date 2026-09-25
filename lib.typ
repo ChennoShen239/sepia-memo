@@ -37,15 +37,15 @@
   ),
 )
 
-/// Cream-paper research memo. The defaults use only Typst's embedded fonts.
+/// Cream-paper research memo. Install EB Garamond and Garamond-Math for the defaults.
 #let memo(
   title: [Untitled memo],
   subtitle: none,
   author: "",
   date: none,
   paper: "a4",
-  font: "Libertinus Serif",
-  math-font: "New Computer Modern Math",
+  font: "EB Garamond",
+  math-font: "Garamond-Math",
   paper-color: rgb("#F4EBDD"),
   ink: rgb("#231F1A"),
   body,

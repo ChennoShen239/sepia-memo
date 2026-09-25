@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT-0
 // Copyright (c) 2026 Chen Gao
-#import "@preview/sepia-memo:0.1.2": memo, memo-note
+#import "@preview/sepia-memo:0.2.0": memo, memo-note
 #import "@preview/droplet:0.3.1": dropcap
 
 #show: memo.with(
