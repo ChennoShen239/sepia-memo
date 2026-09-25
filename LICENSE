@@ -29,3 +29,8 @@ Fonts:
   are separately available under OFL-1.1; retain their licenses and notices
   if redistributing them separately. Font embedding does not impose OFL on
   the document itself. The Typst compiler supplies the default embedded fonts.
+
+Optional dependency:
+  The starter imports droplet 0.3.1 by Eric Biedert from Typst Universe.
+  Droplet is separately licensed under MIT; its source is not copied here.
+  https://github.com/typst/packages/blob/main/packages/preview/droplet/0.3.1/LICENSE

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT-0
 // Copyright (c) 2026 Chen Gao
 #import "@preview/sepia-memo:0.1.2": memo, memo-note
+#import "@preview/droplet:0.3.1": dropcap
 
 #show: memo.with(
   title: [On repeated measurement],
@@ -14,10 +15,12 @@
 
 = Purpose
 
+#dropcap(height: 3, gap: 4pt)[
 A measurement is easier to interpret when its units, repetition, and variation
 are recorded together. This note uses five invented observations to show how a
 short calculation can be reported alongside the information needed to check it.
 The values illustrate the layout; they are not evidence from an experiment.
+]
 
 = Calculation
 

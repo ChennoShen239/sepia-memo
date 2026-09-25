@@ -4,7 +4,8 @@
 Research memos with cream paper, classical serif typography, small-cap headings,
 printer's rules, and readable mathematics and tables. Adapted from
 [Foadsf/vintage-latex](https://github.com/Foadsf/vintage-latex), with modern
-spelling and numerals. The default appearance needs no extra fonts or packages.
+spelling and numerals. The memo style needs no extra fonts or packages; the starter uses
+[droplet](https://typst.app/universe/package/droplet/) for an optional drop cap.
 Requires Typst 0.15.0 or newer.
 
 Version 0.1.2 is a repository-only version. The existing
@@ -18,12 +19,17 @@ Import the package and apply `memo` to your document:
 
 ```typ
 #import "@preview/sepia-memo:0.1.2": memo, memo-note, printer-rule
+#import "@preview/droplet:0.3.1": dropcap
 
 #show: memo.with(title: [A research note], author: "Your name")
 
 = Main idea
 
-Write your note here.
+#dropcap(height: 3, gap: 4pt)[
+  Write your note here. State the question, define the quantities, and explain
+  the main idea before introducing equations or evidence. Use a dropped capital
+  to mark the opening paragraph; the rest of the note uses ordinary text.
+]
 
 #memo-note[Check the units.][A paragraph with a note in the right margin.]
 
@@ -82,6 +88,20 @@ Import `printer-rule` alongside `memo` to insert a three-part divider with
 It reserves both heights to prevent overlap and stays on one page. Use it at
 the top level with the standard memo margins, not inside a table, column, or
 narrow container. Use ordinary footnotes for long notes.
+
+## Optional drop capital
+
+The starter and Usage example import `dropcap` directly from
+[droplet 0.3.1](https://typst.app/universe/package/droplet/), then wrap the opening
+paragraph in `#dropcap(height: 3, gap: 4pt)[...]`. The first letter spans three
+lines; text returns to full width below it. It inherits the memo's text font,
+including optional Garamond. No extra function or setting in `memo` is needed.
+
+Use it on one prose paragraph at a time. Keep tables, display equations, and
+margin notes outside the wrapper. Droplet splits at word boundaries and has
+[wrapping limitations](https://typst.app/universe/package/droplet/#paragraph-splitting).
+For an ordinary opening paragraph, remove the wrapper and the droplet import.
+Typst downloads droplet on first use; later builds can use the cached package.
 
 ## Optional Garamond appearance
 
@@ -178,6 +198,10 @@ it does not change the library's CC-BY-SA obligations. Authors retain rights in
 their own writing. An output's obligations depend on any protected upstream
 material it contains or adapts; this package grants no blanket output exception.
 The supplied sample PDF and preview images may be shared under CC-BY-SA-4.0.
+
+The optional drop-cap package, droplet 0.3.1 by Eric Biedert, is separately
+distributed under [MIT](https://github.com/typst/packages/blob/main/packages/preview/droplet/0.3.1/LICENSE).
+It is imported from Universe; its source is not copied into this package.
 
 No upstream demonstration prose, fonts, engraved figures, or fiziko code are
 distributed. See [LICENSE](LICENSE) for file-level scope and full terms.
