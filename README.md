@@ -13,9 +13,16 @@ Version 0.1.2 is a repository-only version. The existing
 still contains 0.1.0. Registry imports require local installation until the
 corresponding version is published.
 
+## Preview
+
+First page of the complete [starter](template/main.typ), with a drop capital,
+equations, a table, and footnotes:
+
+![Complete starter, page 1 of 2](thumbnail.png)
+
 ## Usage
 
-Import the package and apply `memo` to your document:
+For a shorter example, import the package and apply `memo` to your document:
 
 ```typ
 #import "@preview/sepia-memo:0.1.2": memo, memo-note, printer-rule
@@ -36,7 +43,7 @@ Import the package and apply `memo` to your document:
 #printer-rule()
 ```
 
-Output of the example above:
+Output of this shorter example:
 
 ![Rendered Usage example](usage.png)
 
