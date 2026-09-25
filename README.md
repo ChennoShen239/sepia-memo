@@ -19,7 +19,7 @@ bundled. The starter downloads `droplet:0.3.1` on first compilation.
 ## Usage
 
 [template/main.typ](template/main.typ) is the only starter. Edit its metadata
-and body. The complete example below is the same file; the image is its first page.
+and body. The complete example below is the same file; both rendered pages follow.
 
 ```typ
 // SPDX-License-Identifier: MIT-0
@@ -96,7 +96,13 @@ that a different setting would produce the same distribution. Those claims
 need their own observations and reasoning.
 ```
 
+**Page 1: drop capital, equations, table, and footnote.**
+
 ![The starter rendered with the default Garamond fonts, page 1 of 2](thumbnail.png)
+
+**Page 2: the right-margin note created by `memo-note`.**
+
+![The same starter, page 2 of 2, showing the right-margin note](preview-page-2.png)
 
 Once 0.2.0 is published on Universe, create and watch a memo with:
 
@@ -152,7 +158,7 @@ defines the file boundaries and links to complete terms.
 
 | Included files | License |
 | --- | --- |
-| `lib.typ`, `thumbnail.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
+| `lib.typ`, `thumbnail.png`, `preview-page-2.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
 | `template/main.typ`, `README.md`, `typst.toml`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
 
 | External requirement | License |
