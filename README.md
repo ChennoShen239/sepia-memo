@@ -4,13 +4,12 @@
 Research memos with cream paper, Garamond text and mathematics, drop capitals,
 and margin notes. Requires Typst 0.15.0 or newer.
 
-Version 0.2.0 is not yet on Universe. Until publication, use the local preview
-instructions below. [Submission #5916](https://github.com/typst/packages/pull/5916).
+Available on [Typst Universe](https://typst.app/universe/package/sepia-memo/).
 
 ## Setup
 
 Install [EB Garamond](https://ctan.org/pkg/ebgaramond) (regular, italic, bold,
-and bold italic) and [Garamond-Math](https://github.com/YuanshengZhao/Garamond-Math/blob/master/Garamond-Math.otf).
+and bold italic) and [Garamond-Math](https://github.com/YuanshengZhao/Garamond-Math/blob/42b7c154422ae45e6f834654648da4ac467c656b/Garamond-Math.otf).
 On desktop, install through your font manager and restart the editor/preview;
 verify both families with `typst fonts`. Alternatively pass `--font-path /path/to/fonts`.
 In the Typst web app, upload them to your project if unavailable. Fonts are not
@@ -104,7 +103,7 @@ need their own observations and reasoning.
 
 ![The same starter, page 2 of 2, showing the right-margin note](preview-page-2.png)
 
-Once 0.2.0 is published on Universe, create and watch a memo with:
+Create and watch a memo with:
 
 ```sh
 typst init @preview/sepia-memo:0.2.0 my-memo
@@ -163,10 +162,10 @@ defines the file boundaries and links to complete terms.
 
 | External requirement | License |
 | --- | --- |
-| Typst 0.15.0+ compiler | [Apache-2.0](https://github.com/typst/typst/blob/main/LICENSE) |
-| droplet 0.3.1, imported by the starter | [MIT](https://github.com/typst/packages/blob/main/packages/preview/droplet/0.3.1/LICENSE) |
-| EB Garamond | [OFL-1.1](https://github.com/octaviopardo/EBGaramond12/blob/master/OFL.txt) |
-| Garamond-Math | [OFL-1.1](https://github.com/YuanshengZhao/Garamond-Math/blob/master/LICENSE) |
+| Typst 0.15.0+ compiler | [Apache-2.0](https://github.com/typst/typst/blob/v0.15.0/LICENSE) |
+| droplet 0.3.1, imported by the starter | [MIT](https://github.com/typst/packages/blob/4d52f815df4d7789a48646033f32927ff6f92b92/packages/preview/droplet/0.3.1/LICENSE) |
+| EB Garamond | [OFL-1.1](https://github.com/octaviopardo/EBGaramond12/blob/106a4a6d377987459ae5e68673a4570f13b957fb/OFL.txt) |
+| Garamond-Math | [OFL-1.1](https://github.com/YuanshengZhao/Garamond-Math/blob/42b7c154422ae45e6f834654648da4ac467c656b/LICENSE) |
 
 External tools, package code, and fonts are not bundled. Retain their respective
 licenses and notices if redistributing them separately. Embedding OFL fonts does

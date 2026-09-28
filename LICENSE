@@ -28,16 +28,16 @@ Fonts:
   No font files are distributed. The default EB Garamond and Garamond-Math fonts
   are separately available under OFL-1.1; retain their licenses and notices
   if redistributing them separately.
-  EB Garamond: https://github.com/octaviopardo/EBGaramond12/blob/master/OFL.txt
-  Garamond-Math: https://github.com/YuanshengZhao/Garamond-Math/blob/master/LICENSE
+  EB Garamond: https://github.com/octaviopardo/EBGaramond12/blob/106a4a6d377987459ae5e68673a4570f13b957fb/OFL.txt
+  Garamond-Math: https://github.com/YuanshengZhao/Garamond-Math/blob/42b7c154422ae45e6f834654648da4ac467c656b/LICENSE
   Font embedding does not impose OFL on the document itself.
   The alternative Libertinus/New Computer Modern pair is embedded in Typst.
 
 Starter dependency (removable with the drop-cap wrapper):
   The starter imports droplet 0.3.1 by Eric Biedert from Typst Universe.
   Droplet is separately licensed under MIT; its source is not copied here.
-  https://github.com/typst/packages/blob/main/packages/preview/droplet/0.3.1/LICENSE
+  https://github.com/typst/packages/blob/4d52f815df4d7789a48646033f32927ff6f92b92/packages/preview/droplet/0.3.1/LICENSE
 
 Compiler:
   Typst 0.15.0 or newer is a separately distributed Apache-2.0 tool.
-  https://github.com/typst/typst/blob/main/LICENSE
+  https://github.com/typst/typst/blob/v0.15.0/LICENSE
