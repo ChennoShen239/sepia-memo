@@ -19,6 +19,9 @@ Adaptation by Chen Gao, 2026:
 - Headings, research-memo metadata, and a height-reserving margin-note block
   are added. The starter enables a three-line drop capital from droplet.
   Engraved figures remain outside the scope of this memo template.
+- Version 0.3.0 adds independently drawn native vector torn-paper emphasis
+  blocks with shadows and varied, deterministic tape placement. No image assets
+  or additional package dependencies are introduced.
 - Starter prose and illustrative measurements were written independently.
 
 No upstream demonstration prose, figures, font binaries, MetaPost, or fiziko

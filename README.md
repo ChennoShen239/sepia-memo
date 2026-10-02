@@ -2,7 +2,7 @@
 # sepia-memo
 
 Research memos with cream paper, Garamond text and mathematics, drop capitals,
-and margin notes. Requires Typst 0.15.0 or newer.
+margin notes, and torn-paper emphasis blocks. Requires Typst 0.15.0 or newer.
 
 Available on [Typst Universe](https://typst.app/universe/package/sepia-memo/).
 
@@ -23,7 +23,7 @@ and body. The complete example below is the same file; both rendered pages follo
 ```typ
 // SPDX-License-Identifier: MIT-0
 // Copyright (c) 2026 Chen Gao
-#import "@preview/sepia-memo:0.2.0": memo, memo-note
+#import "@preview/sepia-memo:0.3.0": memo, memo-note, memo-inset
 #import "@preview/droplet:0.3.1": dropcap
 
 #show: memo.with(
@@ -39,13 +39,17 @@ and body. The complete example below is the same file; both rendered pages follo
 = Purpose
 
 #dropcap(height: 3, gap: 4pt)[
-A measurement is easier to interpret when its units, repetition, and variation
-are recorded together. This note uses five invented observations to show how a
-short calculation can be reported alongside the information needed to check it.
-The values illustrate the layout; they are not evidence from an experiment.
+  A measurement is easier to interpret when its units, repetition, and variation
+  are recorded together. Five invented observations illustrate the arithmetic and
+  layout of a short note. They are not evidence from an experiment.
 ]
 
 = Calculation
+
+#memo-inset(title: [Working assumption])[
+  The observations share the same units and collection procedure. Their variation
+  describes these measurements, not the uncertainty of every possible experiment.
+]
 
 Let $x_i$ denote observation $i$ and let $n$ be the number of observations. The
 sample mean and the sample standard deviation are
@@ -60,6 +64,7 @@ The standard deviation is rounded to two decimal places; the calculation uses
 the observations as shown.#footnote[The divisor $n - 1$ defines the usual sample
   variance. Here it equals four.]
 
+#block(breakable: false)[
 #figure(
   table(
     columns: (1fr, 1fr, 1fr),
@@ -77,6 +82,7 @@ the observations as shown.#footnote[The divisor $n - 1$ defines the usual sample
   caption: [Invented observations, in arbitrary units. Deviations are measured
     from the sample mean.],
 ) <tab-observations>
+]
 
 = Interpretation
 
@@ -95,7 +101,7 @@ that a different setting would produce the same distribution. Those claims
 need their own observations and reasoning.
 ```
 
-**Page 1: drop capital, equations, table, and footnote.**
+**Page 1: drop capital, torn-paper block, equations, table, and footnote.**
 
 ![The starter rendered with the default Garamond fonts, page 1 of 2](thumbnail.png)
 
@@ -106,7 +112,7 @@ need their own observations and reasoning.
 Create and watch a memo with:
 
 ```sh
-typst init @preview/sepia-memo:0.2.0 my-memo
+typst init @preview/sepia-memo:0.3.0 my-memo
 typst watch my-memo/main.typ my-memo/main.pdf
 ```
 
@@ -131,6 +137,10 @@ For fonts embedded in the Typst CLI, set `font: "Libertinus Serif"` and
 
 - `memo-note(note)[paragraph]`: one short paragraph with a right-margin note.
   Use at the top level with the standard margins; the pair stays on one page.
+- `memo-inset(title: [Assumption])[content]`: a torn-paper emphasis block.
+  Use at the top level inside `memo`; it can contain prose, equations, and tables
+  and continue across pages. The title is optional. Tape placement varies by block
+  and stays stable when recompiling the same document.
 - `printer-rule()`: import it from sepia-memo for a three-part divider.
   Its `ink` option defaults to `rgb("#231F1A")`.
 - The starter's three-line drop cap comes from [droplet](https://typst.app/universe/package/droplet/).
@@ -158,7 +168,7 @@ defines the file boundaries and links to complete terms.
 | Included files | License |
 | --- | --- |
 | `lib.typ`, `thumbnail.png`, `preview-page-2.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
-| `template/main.typ`, `README.md`, `typst.toml`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
+| `template/main.typ`, `README.md`, `typst.toml`, `CONTEXT.md`, `tests/*`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
 
 | External requirement | License |
 | --- | --- |

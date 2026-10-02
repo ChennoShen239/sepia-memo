@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT-0
 // Copyright (c) 2026 Chen Gao
-#import "@preview/sepia-memo:0.2.0": memo, memo-note
+#import "@preview/sepia-memo:0.3.0": memo, memo-note, memo-inset
 #import "@preview/droplet:0.3.1": dropcap
 
 #show: memo.with(
@@ -16,13 +16,17 @@
 = Purpose
 
 #dropcap(height: 3, gap: 4pt)[
-A measurement is easier to interpret when its units, repetition, and variation
-are recorded together. This note uses five invented observations to show how a
-short calculation can be reported alongside the information needed to check it.
-The values illustrate the layout; they are not evidence from an experiment.
+  A measurement is easier to interpret when its units, repetition, and variation
+  are recorded together. Five invented observations illustrate the arithmetic and
+  layout of a short note. They are not evidence from an experiment.
 ]
 
 = Calculation
+
+#memo-inset(title: [Working assumption])[
+  The observations share the same units and collection procedure. Their variation
+  describes these measurements, not the uncertainty of every possible experiment.
+]
 
 Let $x_i$ denote observation $i$ and let $n$ be the number of observations. The
 sample mean and the sample standard deviation are
@@ -37,6 +41,7 @@ The standard deviation is rounded to two decimal places; the calculation uses
 the observations as shown.#footnote[The divisor $n - 1$ defines the usual sample
   variance. Here it equals four.]
 
+#block(breakable: false)[
 #figure(
   table(
     columns: (1fr, 1fr, 1fr),
@@ -54,6 +59,7 @@ the observations as shown.#footnote[The divisor $n - 1$ defines the usual sample
   caption: [Invented observations, in arbitrary units. Deviations are measured
     from the sample mean.],
 ) <tab-observations>
+]
 
 = Interpretation
 
