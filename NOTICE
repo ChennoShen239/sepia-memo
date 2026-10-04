@@ -23,6 +23,11 @@ Adaptation by Chen Gao, 2026:
   blocks with shadows and varied, deterministic tape placement. No image assets
   or additional package dependencies are introduced.
 - Starter prose and illustrative measurements were written independently.
+- Chinese mode adds ChillKai handwriting, localized labels, paragraph indentation,
+  upright headings, 0.020 em outlined titles and strong text, and underlined
+  emphasis. Font files are not modified. Source Han Serif SC is a selectable
+  printed-book alternative. Both fonts are external OFL-1.1 requirements;
+  no font files are distributed.
 
 No upstream demonstration prose, figures, font binaries, MetaPost, or fiziko
 code is distributed in this package. fiziko is a separate GPL-3.0 work and is

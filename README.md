@@ -1,8 +1,8 @@
 <!-- SPDX-License-Identifier: MIT-0 -->
 # sepia-memo
 
-Research memos with cream paper, Garamond text and mathematics, drop capitals,
-margin notes, and torn-paper emphasis blocks. Requires Typst 0.15.0 or newer.
+Research memos with cream paper, Garamond Latin text and mathematics, Chinese handwriting,
+drop capitals, margin notes, and torn-paper emphasis blocks. Requires Typst 0.15.0 or newer.
 
 Available on [Typst Universe](https://typst.app/universe/package/sepia-memo/).
 
@@ -122,12 +122,13 @@ Set these in `memo.with(...)`. The body follows the show rule normally.
 
 | Option | Default | Purpose |
 | --- | --- | --- |
-| `title` | `[Untitled memo]` | Title and PDF metadata |
+| `title` | `auto` | Title and PDF metadata; defaults to Untitled memo or 未命名札记 |
 | `subtitle` | `none` | Subtitle content |
 | `author` | `""` | Author string and PDF metadata |
 | `date` | `none` | Date content or string |
 | `paper` | `"a4"` | Paper size; also supports `"us-letter"` |
-| `font` | `"EB Garamond"` | Text font |
+| `lang` | `"en"` | Text language; `"zh"` enables Chinese typography |
+| `font` | `auto` | EB Garamond; Chinese adds ChillKai handwriting |
 | `math-font` | `"Garamond-Math"` | Math font |
 | `paper-color` | `rgb("#F4EBDD")` | Background; use `white` for printing |
 | `ink` | `rgb("#231F1A")` | Text and title-rule color |
@@ -159,6 +160,37 @@ typst watch --root . template/main.typ memo.pdf
 Save edits to refresh the PDF, or open `template/main.typ` with your editor's
 [Tinymist browser preview](https://myriad-dreamin.github.io/tinymist/feature/preview.html).
 
+## Chinese
+
+Chinese support is available in this repository, pending a Universe release.
+Install [ChillKai 2.0 (寒蝉正楷)](https://github.com/Warren2060/Chillkai/releases/tag/v2.000)
+alongside the Garamond fonts, then set `lang: "zh"` in `memo.with(...)`.
+This selects 12 pt Chinese handwriting, two-character paragraph indentation, upright
+headings, outlined strong text, underlined emphasis, and the header 研究札记.
+Latin text and mathematics retain their Garamond fonts. Typst handles Chinese
+punctuation and mixed-script spacing.
+
+ChillKai has one Regular face, with no bold or italic variants. Chinese titles,
+headings, pasted-note titles, and `*strong*` use a 0.020 em outline on Chinese glyphs
+and punctuation; Latin strong text uses Garamond's bold face. Body text remains
+Regular, and `_emphasis_` uses an underline. Explicit `text(weight: "bold")` or
+`text(style: "italic")` still selects Regular for ChillKai. Outlining leaves the
+font file unchanged. English mode retains Garamond's bold and italic faces.
+
+[examples/chinese.typ](examples/chinese.typ) is the complete Chinese example.
+Body text, margin notes, and pasted annotations use the same Chinese font.
+For a printed-book alternative, install Source Han Serif SC and set
+`font: ((name: "EB Garamond", covers: "latin-in-cjk"), "Source Han Serif SC")`.
+Drop capitals remain optional through droplet; the Chinese example uses ordinary paragraphs.
+
+```sh
+typst watch --root . examples/chinese.typ chinese.pdf
+```
+
+![Chinese example, page 1 of 2, including the pasted annotation](preview-chinese.png)
+
+![Chinese example, page 2 of 2, including the margin note](preview-chinese-page-2.png)
+
 ## Licenses and dependencies
 
 Adapted from [Foadsf/vintage-latex](https://github.com/Foadsf/vintage-latex).
@@ -167,8 +199,8 @@ defines the file boundaries and links to complete terms.
 
 | Included files | License |
 | --- | --- |
-| `lib.typ`, `thumbnail.png`, `preview-page-2.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
-| `template/main.typ`, `README.md`, `typst.toml`, `CONTEXT.md`, `tests/*`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
+| `lib.typ`, `thumbnail.png`, `preview-*.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
+| `template/main.typ`, `examples/*`, `README.md`, `typst.toml`, `CONTEXT.md`, `tests/*`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
 
 | External requirement | License |
 | --- | --- |
@@ -176,6 +208,8 @@ defines the file boundaries and links to complete terms.
 | droplet 0.3.1, imported by the starter | [MIT](https://github.com/typst/packages/blob/4d52f815df4d7789a48646033f32927ff6f92b92/packages/preview/droplet/0.3.1/LICENSE) |
 | EB Garamond | [OFL-1.1](https://github.com/octaviopardo/EBGaramond12/blob/106a4a6d377987459ae5e68673a4570f13b957fb/OFL.txt) |
 | Garamond-Math | [OFL-1.1](https://github.com/YuanshengZhao/Garamond-Math/blob/42b7c154422ae45e6f834654648da4ac467c656b/LICENSE) |
+| ChillKai, for Chinese handwriting | [OFL-1.1](https://github.com/Warren2060/Chillkai/blob/ab172bd33249136db70e177e8a22d3ae721652dd/LICENSE) |
+| Source Han Serif SC, optional Chinese print font | [OFL-1.1](https://github.com/adobe-fonts/source-han-serif/blob/7889f11bf31170b5d092a083b357c8c8130f89e0/LICENSE.txt) |
 
 External tools, package code, and fonts are not bundled. Retain their respective
 licenses and notices if redistributing them separately. Embedding OFL fonts does

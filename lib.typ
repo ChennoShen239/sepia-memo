@@ -122,7 +122,8 @@
         #metadata((id: id, width: size.width - 2 * _paper-inset)) <sepia-paper-start>
       ]
       #if title != none {
-        text(size: 10.5pt, tracking: 0.06em, smallcaps(title))
+        text(size: 10.5pt, tracking: 0.06em,
+          if text.lang == "zh" { strong(title) } else { smallcaps(title) })
       }
     ]
     #body
@@ -132,19 +133,33 @@
   ]
 })
 
-/// Cream-paper research memo. Install EB Garamond and Garamond-Math for the defaults.
+/// Cream-paper research memo; lang: "zh" selects Chinese typography.
 #let memo(
-  title: [Untitled memo],
+  title: auto,
   subtitle: none,
   author: "",
   date: none,
   paper: "a4",
-  font: "EB Garamond",
+  lang: "en",
+  font: auto,
   math-font: "Garamond-Math",
   paper-color: rgb("#F4EBDD"),
   ink: rgb("#231F1A"),
   body,
 ) = {
+  let chinese = lower(lang) == "zh"
+  let chinese-bold(body) = {
+    show regex("[\\p{Han}\u{3000}-\u{303f}\u{ff00}-\u{ffef}“”‘’]+"): it => context text(
+      stroke: (paint: text.fill, thickness: 0.020em), it,
+    )
+    body
+  }
+  if title == auto { title = if chinese { [未命名札记] } else { [Untitled memo] } }
+  if font == auto {
+    font = if chinese {
+      ((name: "EB Garamond", covers: "latin-in-cjk"), "ChillKai")
+    } else { "EB Garamond" }
+  }
   set document(title: title, author: author)
   set page(
     paper,
@@ -156,45 +171,53 @@
   )
   set text(
     font: font,
-    size: 13pt,
+    size: if chinese { 12pt } else { 13pt },
     fill: ink,
-    lang: "en",
+    lang: lang,
     number-type: "lining",
     number-width: "proportional",
     historical-ligatures: false,
     discretionary-ligatures: false,
   )
-  set par(justify: true, leading: 0.6em, first-line-indent: 1em)
+  set par(justify: true, leading: if chinese { 0.7em } else { 0.6em },
+    first-line-indent: (amount: if chinese { 2em } else { 1em }, all: chinese))
+  show emph: it => if chinese { underline(text(style: "normal", it.body)) } else { it }
+  show strong: it => if chinese { chinese-bold(text(weight: "bold", it.body)) } else { it }
   set heading(numbering: none)
+  show heading: it => if chinese { chinese-bold(it) } else { it }
   show heading: set block(above: 1.25em, below: 0.6em)
-  show heading: set text(weight: "bold", style: "normal")
+  show heading: set text(weight: if chinese { "regular" } else { "bold" }, style: "normal")
   show heading.where(level: 1): set text(
     size: 19pt,
     weight: "regular",
     tracking: 0.04em,
-    features: ("smcp",),
+    features: if chinese { () } else { ("smcp",) },
   )
   show heading.where(level: 2): set text(
     size: 17pt,
     weight: "regular",
-    style: "italic",
+    style: if chinese { "normal" } else { "italic" },
   )
   show heading.where(level: 3): set text(size: 14pt)
-  show math.equation: set text(font: math-font)
+  show math.equation: set text(font: if chinese { (math-font, font).flatten() } else { math-font })
   show table: set text(size: 11.5pt, number-type: "lining", number-width: "tabular")
   set table(stroke: none, inset: (x: 7pt, y: 5pt))
   show figure.where(kind: table): set block(breakable: true)
-  show raw: set text(font: "DejaVu Sans Mono", size: 0.82em)
+  show raw: set text(font: if chinese { ("DejaVu Sans Mono", font).flatten() }
+    else { "DejaVu Sans Mono" }, size: 0.82em)
   show footnote.entry: set text(size: 10pt)
 
   align(center, {
     set par(first-line-indent: 0pt, justify: false)
-    text(size: 10pt, tracking: 0.1em, smallcaps[Research memorandum])
+    text(size: 10pt, tracking: 0.1em,
+      if chinese { [研究札记] } else { smallcaps[Research memorandum] })
     v(0.75em)
-    text(size: 28pt, tracking: 0.025em, smallcaps(title))
+    text(size: 28pt, tracking: 0.025em,
+      weight: "regular",
+      if chinese { chinese-bold(title) } else { smallcaps(title) })
     if subtitle != none {
       v(0.55em)
-      text(size: 12.5pt, style: "italic", subtitle)
+      text(size: 12.5pt, style: if chinese { "normal" } else { "italic" }, subtitle)
     }
     printer-rule(ink: ink)
     let byline = ()
