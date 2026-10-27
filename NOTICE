@@ -22,7 +22,12 @@ Adaptation by Chen Gao, 2026:
 - Version 0.3.0 adds independently drawn native vector torn-paper emphasis
   blocks with shadows and varied, deterministic tape placement. No image assets
   or additional package dependencies are introduced.
-- Starter prose and illustrative measurements were written independently.
+- Version 0.4.0 adds tiled vector paper fibers, a darker page edge, running
+  heads, captions above tables, and block-quotation styling.
+- The English starter reproduces F. Galton, "Vox Populi," Nature 75 (1907),
+  450-451, and the Chinese example reproduces Shen Kuo's 隙积术 from 梦溪笔谈,
+  volume 18; both texts are in the public domain. Headings, notes, and layout
+  were added independently.
 - Chinese mode adds ChillKai handwriting, localized labels, paragraph indentation,
   upright headings, 0.020 em outlined titles and strong text, and underlined
   emphasis. Font files are not modified. Source Han Serif SC is a selectable
