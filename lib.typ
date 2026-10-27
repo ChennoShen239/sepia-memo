@@ -39,11 +39,47 @@
 
 #let _paper-inset = 10pt
 
+#let _noise(n) = {
+  let x = calc.sin(n * 12.9898rad) * 43758.5453
+  x - calc.floor(x)
+}
+
+// One tile of paper fibers. The PDF viewer repeats the tile, so the cost does
+// not grow with page count. Each fiber is also drawn one tile away in every
+// direction, so fibers crossing an edge continue on the neighbouring tile.
+#let _fiber-tile(size, seed, count, ink) = tiling(size: (size, size), {
+  for i in range(count) {
+    let n = seed + i * 7
+    let x = _noise(n) * size
+    let y = _noise(n + 1) * size
+    let angle = _noise(n + 2) * 180deg
+    let length = (2 + 5 * _noise(n + 3)) * 1pt
+    let fiber = line(angle: angle, length: length, stroke: (
+      paint: ink.transparentize((88 + 8 * _noise(n + 4)) * 1%),
+      thickness: 0.25pt, cap: "round",
+    ))
+    for dx in (-size, 0pt, size) {
+      for dy in (-size, 0pt, size) {
+        place(top + left, dx: x + dx, dy: y + dy, fiber)
+      }
+    }
+  }
+})
+
+// Coprime tile sizes make the combined pattern repeat only every 2747 pt.
+#let _fibers = (_fiber-tile(41pt, 3, 14, rgb("#6B5A44")),
+  _fiber-tile(67pt, 101, 30, rgb("#6B5A44")))
+
 // Markers locate each fragment while the block keeps native pagination.
-#let _paper-background() = context {
-  let noise(n) = {
-    let x = calc.sin(n * 12.9898rad) * 43758.5453
-    x - calc.floor(x)
+#let _paper-background(aged: true) = context {
+  let noise = _noise
+  if aged {
+    let page-rect = rect.with(width: 100%, height: 100%, stroke: none)
+    place(top + left, page-rect(fill: gradient.radial(
+      rgb("#8A6E4B").transparentize(100%), rgb("#8A6E4B").transparentize(100%),
+      rgb("#8A6E4B").transparentize(84%), radius: 75%,
+    )))
+    for fibers in _fibers { place(top + left, page-rect(fill: fibers)) }
   }
 
   let torn-edge(length, seed) = {
@@ -166,7 +202,7 @@
     paper,
     margin: (top: 25mm, bottom: 26mm, left: 27mm, right: 38mm),
     fill: paper-color,
-    background: _paper-background(),
+    background: _paper-background(aged: paper-color != white),
     numbering: "1",
     number-align: center,
   )
