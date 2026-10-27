@@ -18,8 +18,8 @@ bundled. The starter downloads `droplet:0.3.1` on first compilation.
 ## Usage
 
 [template/main.typ](template/main.typ) is the only starter: Francis Galton's
-public-domain note "Vox Populi" (_Nature_, 1907). Edit its metadata and body.
-The complete example below is the same file; all three rendered pages follow.
+public-domain note "Vox Populi" (_Nature_, 1907). Replace its metadata and body
+with your own. The whole file is below, then its three rendered pages.
 
 ```typ
 // SPDX-License-Identifier: MIT-0
@@ -192,15 +192,15 @@ of the cards being numbered makes it possible to ascertain whether any given set
 is complete.
 ```
 
-**Page 1: header, block quotation, and drop capital.**
+Page 1 has the header, a block quotation, and the drop capital.
 
 ![The starter rendered with the default Garamond fonts, page 1 of 3](thumbnail.png)
 
-**Page 2: a floating table and a numbered equation.**
+Page 2 has a floating table and a numbered equation.
 
 ![The same starter, page 2 of 3, showing the table and equation](preview-page-2.png)
 
-**Page 3: the right-margin note created by `memo-note` and a torn-paper `memo-inset` block.**
+Page 3 has a right-margin note from `memo-note` and a torn-paper `memo-inset` block.
 
 ![The same starter, page 3 of 3, showing the margin note and torn-paper block](preview-page-3.png)
 
@@ -213,7 +213,7 @@ typst watch my-memo/main.typ my-memo/main.pdf
 
 ## Options
 
-Set these in `memo.with(...)`. The body follows the show rule normally.
+Set these in `memo.with(...)`.
 
 | Option | Default | Purpose |
 | --- | --- | --- |
