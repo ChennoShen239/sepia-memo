@@ -29,7 +29,8 @@
   grid(
     columns: (1fr, 24mm),
     column-gutter: 6mm,
-    body,
+    // A paragraph break makes the cell a paragraph, so first-line indent applies.
+    { body; parbreak() },
     {
       set par(justify: false, first-line-indent: 0pt, leading: 0.5em)
       text(size: 10pt, note)
