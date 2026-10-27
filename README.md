@@ -28,7 +28,7 @@ with your own. The whole file is below, then its three rendered pages.
 // domain. The epigraph, headings, and margin note are added; the diagram is
 // omitted. To start your own memo, edit the metadata and replace everything
 // after the show rule.
-#import "@preview/sepia-memo:0.4.0": memo, memo-note, memo-inset
+#import "@preview/sepia-memo:0.4.1": memo, memo-note, memo-inset
 #import "@preview/droplet:0.3.1": dropcap
 
 #show: memo.with(
@@ -38,7 +38,6 @@ with your own. The whole file is below, then its three rendered pages.
   date: [7 March 1907],
 )
 
-// ponytail: One starter; optional fonts use the same memo settings.
 #set math.equation(numbering: "(1)")
 
 #quote(block: true, attribution: [Alcuin, letter to Charlemagne, 798])[
@@ -208,7 +207,7 @@ Page 3 has a right-margin note from `memo-note` and a torn-paper `memo-inset` bl
 Create and watch a memo with:
 
 ```sh
-typst init @preview/sepia-memo:0.4.0 my-memo
+typst init @preview/sepia-memo:0.4.1 my-memo
 typst watch my-memo/main.typ my-memo/main.pdf
 ```
 
@@ -220,8 +219,9 @@ Set these in `memo.with(...)`.
 | --- | --- | --- |
 | `header` | `none` | Small-caps line above the title, such as a journal or series name |
 | `title` | `auto` | Title and PDF metadata; defaults to Untitled memo or 未命名札记 |
+| `short-title` | `none` | Title for the running head; defaults to `title` |
 | `subtitle` | `none` | Subtitle content |
-| `author` | `""` | Author string and PDF metadata |
+| `author` | `none` | Author as a string, content, or an array of either; also PDF metadata |
 | `date` | `none` | Date content or string |
 | `paper` | `"a4"` | Paper size; also supports `"us-letter"` |
 | `lang` | `"en"` | Text language; `"zh"` enables Chinese typography |
@@ -252,21 +252,8 @@ For fonts embedded in the Typst CLI, set `font: "Libertinus Serif"` and
   Wrap prose only; keep tables, display equations, and margin notes outside it.
   To remove it, delete the `dropcap(...)` wrapper and droplet import.
 
-## Local preview
-
-Open the repository folder. In `template/main.typ`, change only the sepia-memo
-import path to `"../lib.typ"`, then run from the repository root:
-
-```sh
-typst watch --root . template/main.typ memo.pdf
-```
-
-Save edits to refresh the PDF, or open `template/main.typ` with your editor's
-[Tinymist browser preview](https://myriad-dreamin.github.io/tinymist/feature/preview.html).
-
 ## Chinese
 
-Chinese support requires sepia-memo 0.4.0 or newer.
 Install [ChillKai 2.0 (寒蝉正楷)](https://github.com/Warren2060/Chillkai/releases/tag/v2.000)
 alongside the Garamond fonts, then set `lang: "zh"` in `memo.with(...)`.
 This selects 12 pt Chinese handwriting, two-character paragraph indentation, upright
@@ -281,20 +268,18 @@ Regular, and `_emphasis_` uses an underline. Explicit `text(weight: "bold")` or
 `text(style: "italic")` still selects Regular for ChillKai. Outlining leaves the
 font file unchanged. English mode retains Garamond's bold and italic faces.
 
-[examples/chinese.typ](https://github.com/ChennoShen239/sepia-memo/blob/v0.4.0/examples/chinese.typ) is the complete Chinese example:
+[examples/chinese.typ](https://github.com/ChennoShen239/sepia-memo/blob/v0.4.1/examples/chinese.typ) is the complete Chinese example:
 Shen Kuo's gap-pile method (隙积术) from _Dream Pool Essays_ (梦溪笔谈), volume 18.
 Body text, margin notes, and pasted annotations use the same Chinese font.
 For a printed-book alternative, install Source Han Serif SC and set
 `font: ((name: "EB Garamond", covers: "latin-in-cjk"), "Source Han Serif SC")`.
 Drop capitals remain optional through droplet; the Chinese example uses ordinary paragraphs.
-To preview it from the repository, change its sepia-memo import to `"../lib.typ"`
-as in [Local preview](#local-preview), then run:
-
-```sh
-typst watch --root . examples/chinese.typ chinese.pdf
-```
-
 ![Chinese example, with margin notes, an equation, and a pasted annotation](preview-chinese.png)
+
+## Development
+
+To preview changes from a clone of the repository, run the tests, or rebuild the
+preview images, see [CONTRIBUTING.md](https://github.com/ChennoShen239/sepia-memo/blob/v0.4.1/CONTRIBUTING.md).
 
 ## Licenses and dependencies
 
@@ -304,8 +289,8 @@ defines the file boundaries and links to complete terms.
 
 | Included files | License |
 | --- | --- |
-| `lib.typ`, `thumbnail.png`, `preview-*.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
-| `template/main.typ`, `examples/*`, `README.md`, `typst.toml`, `CONTEXT.md`, `tests/*`, `.gitignore` | [MIT-0](licenses/MIT-0.txt) |
+| `lib.typ`, `src/*`, `thumbnail.png`, `preview-*.png` | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt) |
+| `template/main.typ`, `README.md`, `typst.toml` | [MIT-0](licenses/MIT-0.txt) |
 
 | External requirement | License |
 | --- | --- |

@@ -4,7 +4,7 @@
 // domain. The epigraph, headings, and margin note are added; the diagram is
 // omitted. To start your own memo, edit the metadata and replace everything
 // after the show rule.
-#import "@preview/sepia-memo:0.4.0": memo, memo-note, memo-inset
+#import "@preview/sepia-memo:0.4.1": memo, memo-note, memo-inset
 #import "@preview/droplet:0.3.1": dropcap
 
 #show: memo.with(
@@ -14,7 +14,6 @@
   date: [7 March 1907],
 )
 
-// ponytail: One starter; optional fonts use the same memo settings.
 #set math.equation(numbering: "(1)")
 
 #quote(block: true, attribution: [Alcuin, letter to Charlemagne, 798])[
