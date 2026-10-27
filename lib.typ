@@ -204,7 +204,16 @@
     fill: paper-color,
     background: _paper-background(aged: paper-color != white),
     numbering: "1",
-    number-align: center,
+    // From page 2, a running head carries the author, title, and page number.
+    header: context if here().page() > 1 {
+      set text(size: 10pt, tracking: 0.06em)
+      let head = if author == "" { title }
+        else if chinese { [#author：#title] } else { [#author: #title] }
+      grid(columns: (1fr, auto, 1fr), [],
+        if chinese { head } else { smallcaps(head) },
+        align(right, counter(page).display()))
+    },
+    footer: context if here().page() == 1 { align(center, counter(page).display()) },
   )
   set text(
     font: font,
@@ -216,7 +225,8 @@
     historical-ligatures: false,
     discretionary-ligatures: false,
   )
-  set par(justify: true, leading: if chinese { 0.7em } else { 0.6em },
+  let leading = if chinese { 0.7em } else { 0.6em }
+  set par(justify: true, leading: leading, spacing: leading,
     first-line-indent: (amount: if chinese { 2em } else { 1em }, all: chinese))
   show emph: it => if chinese { underline(text(style: "normal", it.body)) } else { it }
   show strong: it => if chinese { chinese-bold(text(weight: "bold", it.body)) } else { it }
@@ -238,8 +248,12 @@
   show heading.where(level: 3): set text(size: 14pt)
   show math.equation: set text(font: if chinese { (math-font, font).flatten() } else { math-font })
   show table: set text(size: 11.5pt, number-type: "lining", number-width: "tabular")
+  show table: set par(justify: false)
   set table(stroke: none, inset: (x: 7pt, y: 5pt))
   show figure.where(kind: table): set block(breakable: true)
+  show figure.where(kind: table): set figure.caption(position: top,
+    separator: if chinese { [　] } else { [.—] })
+  show figure.caption.where(kind: table): it => if chinese { it } else { smallcaps(it) }
   show raw: set text(font: if chinese { ("DejaVu Sans Mono", font).flatten() }
     else { "DejaVu Sans Mono" }, size: 0.82em)
   show footnote.entry: set text(size: 10pt)
