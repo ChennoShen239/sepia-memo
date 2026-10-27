@@ -26,7 +26,8 @@ with your own. The whole file is below, then its three rendered pages.
 // Copyright (c) 2026 Chen Gao
 // Text: F. Galton, "Vox Populi," Nature 75 (7 March 1907): 450–451; public
 // domain. The epigraph, headings, and margin note are added; the diagram is
-// omitted.
+// omitted. To start your own memo, edit the metadata and replace everything
+// after the show rule.
 #import "@preview/sepia-memo:0.4.0": memo, memo-note, memo-inset
 #import "@preview/droplet:0.3.1": dropcap
 
@@ -194,7 +195,7 @@ is complete.
 
 Page 1 has the header, a block quotation, and the drop capital.
 
-![The starter rendered with the default Garamond fonts, page 1 of 3](thumbnail.png)
+![The starter rendered with the default Garamond fonts, page 1 of 3](preview-page-1.png)
 
 Page 2 has a floating table and a numbered equation.
 
@@ -280,12 +281,14 @@ Regular, and `_emphasis_` uses an underline. Explicit `text(weight: "bold")` or
 `text(style: "italic")` still selects Regular for ChillKai. Outlining leaves the
 font file unchanged. English mode retains Garamond's bold and italic faces.
 
-[examples/chinese.typ](examples/chinese.typ) is the complete Chinese example:
+[examples/chinese.typ](https://github.com/ChennoShen239/sepia-memo/blob/v0.4.0/examples/chinese.typ) is the complete Chinese example:
 Shen Kuo's gap-pile method (隙积术) from _Dream Pool Essays_ (梦溪笔谈), volume 18.
 Body text, margin notes, and pasted annotations use the same Chinese font.
 For a printed-book alternative, install Source Han Serif SC and set
 `font: ((name: "EB Garamond", covers: "latin-in-cjk"), "Source Han Serif SC")`.
 Drop capitals remain optional through droplet; the Chinese example uses ordinary paragraphs.
+To preview it from the repository, change its sepia-memo import to `"../lib.typ"`
+as in [Local preview](#local-preview), then run:
 
 ```sh
 typst watch --root . examples/chinese.typ chinese.pdf

@@ -2,7 +2,8 @@
 // Copyright (c) 2026 Chen Gao
 // Text: F. Galton, "Vox Populi," Nature 75 (7 March 1907): 450–451; public
 // domain. The epigraph, headings, and margin note are added; the diagram is
-// omitted.
+// omitted. To start your own memo, edit the metadata and replace everything
+// after the show rule.
 #import "@preview/sepia-memo:0.4.0": memo, memo-note, memo-inset
 #import "@preview/droplet:0.3.1": dropcap
 

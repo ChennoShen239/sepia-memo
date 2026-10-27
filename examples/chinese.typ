@@ -3,7 +3,7 @@
 // 正文：沈括《梦溪笔谈》卷十八「隙积术」，据维基文库本转为简体，公有领域。
 // 异文取「六幂」「为股」「余者半之为勾」「求弦」「六而一」「上位」；「灑家」从通行本作「酒家」。
 // 小标题、公式、边注与贴纸块为排版所加。
-#import "../lib.typ": memo, memo-note, memo-inset
+#import "@preview/sepia-memo:0.4.0": memo, memo-note, memo-inset
 
 #show: memo.with(
   lang: "zh",
