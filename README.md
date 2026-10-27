@@ -27,7 +27,7 @@ The complete example below is the same file; all three rendered pages follow.
 // Text: F. Galton, "Vox Populi," Nature 75 (7 March 1907): 450–451; public
 // domain. The epigraph, headings, and margin note are added; the diagram is
 // omitted.
-#import "@preview/sepia-memo:0.3.0": memo, memo-note, memo-inset
+#import "@preview/sepia-memo:0.4.0": memo, memo-note, memo-inset
 #import "@preview/droplet:0.3.1": dropcap
 
 #show: memo.with(
@@ -80,43 +80,49 @@ in which they were made, into lbs., under which form they will be treated.
 
 #figure(
   placement: auto,
-  table(
-    columns: (auto, 1fr, 1fr, 1fr, 1fr),
-    align: (right, right, right, right, right),
-    table.hline(stroke: 0.6pt),
-    table.header(
-      table.cell(rowspan: 2, align: bottom)[*Degree*],
-      table.cell(rowspan: 2, align: bottom)[*Estimate*],
-      table.cell(colspan: 2, align: center)[*Centiles*],
-      table.cell(rowspan: 2, align: bottom)[*Excess*],
-      [*Observed*], [*Normal*],
-    ),
-    table.hline(stroke: 0.3pt),
-    [5], [1074], [−133], [−90], [+43],
-    [10], [1109], [−98], [−70], [+28],
-    [15], [1126], [−81], [−57], [+24],
-    [20], [1148], [−59], [−46], [+13],
-    [$q_1$ 25], [1162], [−45], [−37], [+8],
-    [30], [1174], [−33], [−29], [+4],
-    [35], [1181], [−26], [−21], [+5],
-    [40], [1188], [−19], [−14], [+5],
-    [45], [1197], [−10], [−7], [+3],
-    [$m$ 50], [1207], [0], [0], [0],
-    [55], [1214], [+7], [+7], [0],
-    [60], [1219], [+12], [+14], [−2],
-    [65], [1225], [+18], [+21], [−3],
-    [70], [1230], [+23], [+29], [−6],
-    [$q_3$ 75], [1236], [+29], [+37], [−8],
-    [80], [1243], [+36], [+46], [−10],
-    [85], [1254], [+47], [+57], [−10],
-    [90], [1267], [+52], [+70], [−18],
-    [95], [1293], [+86], [+90], [−4],
-    table.hline(stroke: 0.6pt),
-  ),
+  {
+    table(
+      columns: (1fr,) * 5,
+      align: center,
+      table.hline(stroke: 0.6pt),
+      table.header(
+        table.cell(rowspan: 2, align: bottom + center)[Degrees of the length of array 0°–100°],
+        table.cell(rowspan: 2, align: bottom + center)[Estimates in lbs.],
+        table.cell(colspan: 2, align: center)[Centiles],
+        table.cell(rowspan: 2, align: bottom + center)[Excess of observed over normal],
+        table.cell(align: bottom + center)[Observed deviates from 1207 lbs.],
+        table.cell(align: bottom + center)[Normal \ p.e. $= 37$],
+      ),
+      table.hline(stroke: 0.3pt),
+      [5], [1074], [−133], [−90], [+43],
+      [10], [1109], [−98], [−70], [+28],
+      [15], [1126], [−81], [−57], [+24],
+      [20], [1148], [−59], [−46], [+13],
+      [$q_1$ 25], [1162], [−45], [−37], [+8],
+      [30], [1174], [−33], [−29], [+4],
+      [35], [1181], [−26], [−21], [+5],
+      [40], [1188], [−19], [−14], [+5],
+      [45], [1197], [−10], [−7], [+3],
+      [$m$ 50], [1207], [0], [0], [0],
+      [55], [1214], [+7], [+7], [0],
+      [60], [1219], [+12], [+14], [−2],
+      [65], [1225], [+18], [+21], [−3],
+      [70], [1230], [+23], [+29], [−6],
+      [$q_3$ 75], [1236], [+29], [+37], [−8],
+      [80], [1243], [+36], [+46], [−10],
+      [85], [1254], [+47], [+57], [−10],
+      [90], [1267], [+52], [+70], [−18],
+      [95], [1293], [+86], [+90], [−4],
+      table.hline(stroke: 0.6pt),
+    )
+    set align(left)
+    set text(size: 10pt)
+    [$q_1$, $q_3$, the first and third quartiles, stand at 25° and 75°
+      respectively. $m$, the median or middlemost value, stands at 50°. The
+      dressed weight proved to be 1198 lbs.]
+  },
   caption: [Distribution of the estimates of the dressed weight of a particular
-    living ox, made by 787 different persons, in lb. Degrees run along the array
-    from 0 to 100; observed deviates are measured from 1207 lb., and the normal
-    curve has p.e. $= 37$. The dressed weight proved to be 1198 lb.],
+    living ox, made by 787 different persons],
 ) <tab-estimates>
 
 According to the democratic principle of "one vote one value," the middlemost
@@ -201,7 +207,7 @@ is complete.
 Create and watch a memo with:
 
 ```sh
-typst init @preview/sepia-memo:0.3.0 my-memo
+typst init @preview/sepia-memo:0.4.0 my-memo
 typst watch my-memo/main.typ my-memo/main.pdf
 ```
 
@@ -220,8 +226,13 @@ Set these in `memo.with(...)`. The body follows the show rule normally.
 | `lang` | `"en"` | Text language; `"zh"` enables Chinese typography |
 | `font` | `auto` | EB Garamond; Chinese adds ChillKai handwriting |
 | `math-font` | `"Garamond-Math"` | Math font |
-| `paper-color` | `rgb("#F4EBDD")` | Background; use `white` for printing |
+| `paper-color` | `rgb("#F4EBDD")` | Background with faint fibers and a darker edge; `white` turns both off for printing |
 | `ink` | `rgb("#231F1A")` | Text and title-rule color |
+
+From page 2, a running head shows the author, title, and page number. Table
+captions sit above their tables, in the form "Table 1.—Title" (Chinese: "表 1　标题").
+Paragraphs are separated by indentation only. For roman section numbers, add
+`#set heading(numbering: "I.")` after the show rule.
 
 For fonts embedded in the Typst CLI, set `font: "Libertinus Serif"` and
 `math-font: "New Computer Modern Math"`; the layout will differ from the preview.
@@ -254,7 +265,7 @@ Save edits to refresh the PDF, or open `template/main.typ` with your editor's
 
 ## Chinese
 
-Chinese support is available in this repository, pending a Universe release.
+Chinese support requires sepia-memo 0.4.0 or newer.
 Install [ChillKai 2.0 (寒蝉正楷)](https://github.com/Warren2060/Chillkai/releases/tag/v2.000)
 alongside the Garamond fonts, then set `lang: "zh"` in `memo.with(...)`.
 This selects 12 pt Chinese handwriting, two-character paragraph indentation, upright
@@ -269,7 +280,8 @@ Regular, and `_emphasis_` uses an underline. Explicit `text(weight: "bold")` or
 `text(style: "italic")` still selects Regular for ChillKai. Outlining leaves the
 font file unchanged. English mode retains Garamond's bold and italic faces.
 
-[examples/chinese.typ](examples/chinese.typ) is the complete Chinese example.
+[examples/chinese.typ](examples/chinese.typ) is the complete Chinese example:
+Shen Kuo's gap-pile method (隙积术) from _Dream Pool Essays_ (梦溪笔谈), volume 18.
 Body text, margin notes, and pasted annotations use the same Chinese font.
 For a printed-book alternative, install Source Han Serif SC and set
 `font: ((name: "EB Garamond", covers: "latin-in-cjk"), "Source Han Serif SC")`.
@@ -279,9 +291,7 @@ Drop capitals remain optional through droplet; the Chinese example uses ordinary
 typst watch --root . examples/chinese.typ chinese.pdf
 ```
 
-![Chinese example, page 1 of 2, including the pasted annotation](preview-chinese.png)
-
-![Chinese example, page 2 of 2, including the margin note](preview-chinese-page-2.png)
+![Chinese example, with margin notes, an equation, and a pasted annotation](preview-chinese.png)
 
 ## Licenses and dependencies
 
