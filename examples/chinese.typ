@@ -4,6 +4,7 @@
 
 #show: memo.with(
   lang: "zh",
+  header: [研究札记],
   title: [关于重复测量],
   subtitle: [均值、变动与单位的简短笔记],
   author: "研究者",

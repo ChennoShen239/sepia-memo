@@ -135,6 +135,7 @@
 
 /// Cream-paper research memo; lang: "zh" selects Chinese typography.
 #let memo(
+  header: none,
   title: auto,
   subtitle: none,
   author: "",
@@ -206,12 +207,16 @@
   show raw: set text(font: if chinese { ("DejaVu Sans Mono", font).flatten() }
     else { "DejaVu Sans Mono" }, size: 0.82em)
   show footnote.entry: set text(size: 10pt)
+  show quote.where(block: true): set text(size: 0.88em)
+  show quote.where(block: true): set par(first-line-indent: 0pt)
+  show quote.where(block: true): set block(above: 1.2em, below: 1.2em)
 
   align(center, {
     set par(first-line-indent: 0pt, justify: false)
-    text(size: 10pt, tracking: 0.1em,
-      if chinese { [研究札记] } else { smallcaps[Research memorandum] })
-    v(0.75em)
+    if header != none {
+      text(size: 10pt, tracking: 0.1em, if chinese { header } else { smallcaps(header) })
+      v(0.75em)
+    }
     text(size: 28pt, tracking: 0.025em,
       weight: "regular",
       if chinese { chinese-bold(title) } else { smallcaps(title) })
