@@ -20,5 +20,5 @@ two-character paragraph indentation, and upright headings. ChillKai is Regular-o
 Chinese titles and strong markup use a 0.020 em outline on Chinese glyphs and
 punctuation; emphasis uses underlines. Latin strong text uses native Garamond bold.
 Body text, margin notes, and pasted annotations share one Chinese font.
-Source Han Serif SC remains a
-printed-book alternative through `font`. English remains the default language.
+Source Han Serif SC remains a printed-book alternative through `font`.
+English remains the default language.
